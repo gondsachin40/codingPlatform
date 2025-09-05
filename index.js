@@ -4,13 +4,14 @@ import cookieParser from 'cookie-parser';
 import authRouter from './src/routes/userAuth.router.js';
 import admin from './src/routes/adminAuth.router.js';
 import profile from './src/controllers/profile.js';
-
+import problem from './src/routes/problemCreator.js';
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use('/auth', authRouter);
 app.use('/profile', profile);
 app.use('/admin', admin);
+app.use('/problem', problem);
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });

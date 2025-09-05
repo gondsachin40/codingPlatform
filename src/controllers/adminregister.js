@@ -1,10 +1,11 @@
-import e from "express";
 import user from "../models/user.js";
 import bcrypt from "bcrypt";
 
 export default async function register(req, res) {
     try {
+        console.log(req.body);
         const { firstName, email, password } = req.body;
+        console.log(req.body);
         console.log(
             "Registering admin with details:",
         )
@@ -22,6 +23,7 @@ export default async function register(req, res) {
         }
 
         const existingUser = await user.findOne({ email });
+        console.log(email)
         if (existingUser) {
             return res.status(400).send("Email already registered.");
         }
