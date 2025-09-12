@@ -7,5 +7,4 @@ const problem = express.Router();
 problem.post('/create', adminMiddleware, problemCreator);
 problem.get('/:id', getproblemById);
 problem.get('/', getAllProblems);
-// problem.get('/user',)
 export default problem;

@@ -1,6 +1,26 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+const tokenSchema = new Schema({
+    token: {
+        type: String,
+        required: true
+    }
+}, { _id: false });
+
+const batchSchema = new Schema({
+    tokens: [tokenSchema]
+}, { _id: false });
+
+const submissionSchema = new Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user',
+        required: true
+    },
+    batches: [batchSchema],
+}, { timestamps: true });
+
 const problemSchema = new Schema({
     title: {
         type: String,
@@ -23,22 +43,12 @@ const problemSchema = new Schema({
         default: []
     },
     visibleTestCases: [{
-        input: {
-            type: String,
-            required: true
-        }, output: {
-            type: String,
-            required: true
-        }
+        input: { type: String, required: true },
+        output: { type: String, required: true }
     }],
     hiddenTestCases: [{
-        input: {
-            type: String,
-            required: true
-        }, output: {
-            type: String,
-            required: true
-        }
+        input: { type: String, required: true },
+        output: { type: String, required: true }
     }],
     explanation: {
         type: String
@@ -53,13 +63,16 @@ const problemSchema = new Schema({
             type: String,
             required: true
         }
-    }, problemCreatedBy: {
+    },
+    problemCreatedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         required: true
-    }
+    },
+    submissions: [submissionSchema]
 }, { timestamps: true });
 
 const problem = mongoose.model("problem", problemSchema);
 
 export default problem;
+export { tokenSchema, batchSchema, submissionSchema };

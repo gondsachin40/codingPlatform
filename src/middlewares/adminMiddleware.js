@@ -19,7 +19,7 @@ async function adminMiddle(req, res, next) {
         if (result.role !== 'admin') {
             return res.status(403).send('Access denied. Admins only.');
         }
-        // console.log(result)
+        req.user = result;
         next();
     } catch (err) {
         res.status(500).send('Error in middleware: ' + err.message);

@@ -18,6 +18,7 @@ async function middle(req, res, next) {
         if (!result) {
             return res.status(401).send('User not found.');
         }
+        req.user = result;
         next();
     } catch (err) {
         res.status(500).send('Error in middleware: ' + err.message);

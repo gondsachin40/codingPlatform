@@ -5,10 +5,12 @@ export default async function login(req, res) {
     console.log('hello')
     try {
         const { email, password } = req.body;
+        console.log(email, password)
         if (!email || !password) {
             throw new Error('Email and password are required');
         }
         const User = await user.findOne({ email });
+        console.log(User)
         if (!User) {
             return res.status(401).send('Invalid credentials');
         }
